@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: qml-h4-signal-bot
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python qml_h4_bot.py
+    healthCheckPath: /health
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: TWELVE_DATA_API_KEY
+        sync: false
+      - key: MONITOR_INTERVAL_SECONDS
+        value: "900"
+      - key: TWELVE_DATA_DAILY_CREDIT_LIMIT
+        value: "0"
+      - key: DB_PATH
+        value: /tmp/qml_signals.sqlite3
+      - key: LOG_PATH
+        value: /tmp/qml_bot.log
+      - key: MAX_QUOTE_AGE_SECONDS
+        value: "1200"
